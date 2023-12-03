@@ -1,0 +1,62 @@
+create database Study
+CREATE TABLE Study.Universities (
+    Id int primary key unique not null auto_increment,
+    UniName varchar(20),
+    City varchar (20)
+);
+INSERT INTO Study.Universities (Id, UniName, City) values (1, "ЛНУ", "Львів");
+INSERT INTO Study.Universities (Id, UniName, City) values (2, "ЛП", "Львів");
+INSERT INTO Study.Universities (Id, UniName, City) values (3, "КНУ", "Київ");
+INSERT INTO Study.Universities (Id, UniName, City) values (4, "НТУУ", "Київ");
+INSERT INTO Study.Universities (Id, UniName, City) values (5, "ОНЕУ", "Одеса");
+
+
+
+Create table Study.Faculties (
+Id int not null,
+FacultyId int not null,
+UniversityId int not null,
+Name varchar (20), 
+foreign key (Id) references Universities (Id), 
+foreign key (FacultyId) references Study.Grups (Id)
+);
+
+select * from Study.Grups
+Create table Study.Grups (
+Id int primary key,
+GroupNumber int not null,
+FacultyId int not null, 
+foreign key (GroupNumber) references Study.Students (GroupId)
+) 
+
+select * from Study.Grups
+INSERT INTO  Study.Grups (Id, GroupNumber, FacultyId) values (1, 101, 1);
+INSERT INTO Study.Grups (Id, GroupNumber, FacultyId) values (2, 102, 2);
+INSERT INTO Study.Grups (Id, GroupNumber, FacultyId) values (3, 201, 3);
+INSERT INTO Study.Grups (Id, GroupNumber, FacultyId) values (4, 202, 4);
+INSERT INTO Study.Grups (Id, GroupNumber, FacultyId) values (5, 301, 5);
+INSERT INTO Study.Grups (Id, GroupNumber, FacultyId) values (6, 302, 6);
+INSERT INTO Study.Grups (Id, GroupNumber, FacultyId) values (7, 401, 7);
+INSERT INTO Study.Grups (Id, GroupNumber, FacultyId) values (8, 402, 8);
+INSERT INTO Study.Grups (Id, GroupNumber, FacultyId) values (9, 501, 9);
+INSERT INTO Study.Grups (Id, GroupNumber, FacultyId) values (10, 502, 10);
+
+Create table Study.Students (
+Id int not null,
+Name varchar (20),
+Surname varchar (20),
+Age int not null,
+GroupId int primary key
+);
+
+Insert into Study.Students (Id, Name, Surname, Age, GroupId) Values (1, "Maksym", "Kit", 19, 101);
+Insert into Study.Students (Id, Name, Surname, Age, GroupId) Values (2, "Alina", "Romanyk", 20, 201);
+Insert into Study.Students (Id, Name, Surname, Age, GroupId) Values (3, "Victoria", "Ruda", 21, 301);
+Insert into Study.Students (Id, Name, Surname, Age, GroupId) Values (4, "Anna", "Lysenko", 22, 401);
+Insert into Study.Students (Id, Name, Surname, Age, GroupId) Values (5, "Viktor", "Stus", 23, 501);
+Insert into Study.Students (Id, Name, Surname, Age, GroupId) Values (6, "Alex", "Povh", 23, 502);
+Insert into Study.Students (Id, Name, Surname, Age, GroupId) Values (7, "Andrii", "Komar", 22, 402);
+Insert into Study.Students (Id, Name, Surname, Age, GroupId) Values (8, "Nazar", "Chorniak", 21, 302);
+Insert into Study.Students (Id, Name, Surname, Age, GroupId) Values (9, "Sofia", "Kochura", 20, 202);
+Insert into Study.Students (Id, Name, Surname, Age, GroupId) Values (10, "Petro", "Rubchak", 19, 102);
+
