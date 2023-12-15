@@ -1,0 +1,115 @@
+1.	Select columns “name” and “id” from users. 
+select id, name 
+from users;
+
+2.	Show all content from table “users” 
+select id, name 
+from users;
+
+3.	Select users without full name duplication 
+select distinct name 
+from users;
+
+4.	List all account that was activated 
+select * from users 
+where active = 1 and activationCode is NULL;
+
+5.	Count all users 
+select count(name)  from users;
+select count(*)  from users;
+
+6.	Count all activated users 
+select count(*)  
+from users 
+where active = 1 and activationCode is NULL;
+
+7.	List all activated students and teachers in alphabetical order 
+Select * from users 
+where role = "TEACHER" AND active = 1 AND activationCode is NULL ORDER BY NAME ASC;
+
+Select * from users 
+where role = "STUDENT" AND active = 1 AND activationCode is NULL ORDER BY NAME ASC;
+
+9.	List only users accounts that were created after 23 AUG 2023 
+select * from users 
+where createdAt > "2023-08-23%";
+
+10.	List all assignments that were created on 25 Oct 2023, graded by Teacher and have result “Passed”
+select * from assignments 
+where createdAt like "2023-10-25%" and gradedBy ="Teacher" and result = "Passed"
+
+11.	List all assignments with status “Failed” or “Pending”
+select * from assignments 
+where result = "FAILED" or result = "PENDING";
+
+12.	List all students that failed quiz on 25 Oct 2023
+select name, result, submittedAt 
+from users, assignments 
+where result = "FAILED" 
+and submittedAt like "2023-10-25%";
+
+13.	List first 3 teachers’ accounts that were created
+select * from users 
+where role = "TEACHER" 
+order by createdAt limit 3;  
+
+14.	List last 3 teachers account that was created 
+select * from users 
+where role = "TEACHER" 
+order by desc createdAt 
+limit 3;
+
+15.	List all users whose name ends on “er” 
+select * from users 
+where name like "%er"
+
+16.	List all assignments where id more than 20500 and less than 20600
+select * from assignments 
+where id > 20500 
+and id < 20600;
+
+17.	List all students failed by teachers 
+select name, gradedBy, result 
+from users, assignments 
+where gradedBy = "Teacher" 
+and result = "FAILED"
+
+18.	List all students that were failed by the system 
+select name, gradedBy, result 
+from users, assignments 
+where gradedBy = "AUTOMATIC" 
+and result = "FAILED"
+
+19.	List all students who submitted assignments 
+select name, submittedAt 
+from users, assignments 
+where submittedAt is not null;
+
+20.	Show the number of assignments for every student user 
+select users.name, COUNT(assignments.id) 
+from assignments 
+inner join users on assignments.userId = users.id 
+group by name;
+
+21.	Show the group(s) with maximum/minimum students 
+Maximum 
+SELECT `group`, COUNT(name) AS student_count FROM users GROUP BY `group` ORDER BY student_count DESC LIMIT 1;
+Minimum
+SELECT `group`, COUNT(name) AS student_count 
+FROM users GROUP BY `group`
+ORDER BY student_count LIMIT 1;
+
+22.	Find students’ ids, and names who did not get any assignments so far 
+select users.id, users.name 
+from users 
+left join assignments on users.id = assignments.userId 
+where assignments.userId is null;
+
+23.	Find those students who get maximum number of assignments
+SELECT users.id, users.name, COUNT(assignments.id) AS assignment_count
+FROM users
+LEFT JOIN assignments ON users.id = assignments.userId
+GROUP BY users.id, users.name
+ORDER BY assignment_count DESC;
+
+
